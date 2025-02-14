@@ -69,6 +69,8 @@ const Game = (function () {
 
   // Start or restart the game
   function start() {
+    gameOver = false;
+    currentPlayerIndex = 0;
     Gameboard.reset();
     displayController.renderMessage(
       `${players[currentPlayerIndex].name}'s turn`
@@ -118,9 +120,15 @@ const Game = (function () {
     );
   }
 
+  function handleRestart() {
+    const btnRestart = document.querySelector('.btn-restart');
+    btnRestart.addEventListener('click', start);
+  }
+
   return {
     start,
     handleClick,
+    handleRestart,
   };
 })();
 
@@ -132,5 +140,7 @@ const displayController = (function () {
   }
   return { renderMessage };
 })();
+
 // Init
 Game.start();
+Game.handleRestart();
