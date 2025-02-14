@@ -1,5 +1,6 @@
 // script.js
 
+// Module to manage the gameboard
 const Gameboard = (function () {
   const gameboardGrid = document.querySelector('#gameboard');
   let board = Array(9).fill('');
@@ -29,4 +30,17 @@ const Gameboard = (function () {
 // Factory function to create players
 const createPlayer = (name, mark) => ({ name, mark });
 
-Gameboard.render();
+// Module to manage the game logic
+const Game = (function () {
+  // Start or restart the game
+  function start() {
+    Gameboard.reset();
+  }
+
+  return {
+    start,
+  };
+})();
+
+// Init
+Game.start();
