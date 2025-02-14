@@ -75,12 +75,18 @@ const Game = (function () {
     );
   }
 
+  // Check if current player won
   function checkWinner() {
     const board = Gameboard.getBoard();
     return winningCombinations.some((combination) => {
       const [a, b, c] = combination;
       return board[a] && board[a] === board[b] && board[a] === board[c];
     });
+  }
+
+  // Check if the game is a tie
+  function checkTie() {
+    return Gameboard.getBoard().every((cell) => cell !== '');
   }
 
   function handleClick(event) {
@@ -91,12 +97,17 @@ const Game = (function () {
 
     Gameboard.update(index, players[currentPlayerIndex].mark);
 
-    // Check if current player won
     if (checkWinner()) {
       gameOver = true;
       displayController.renderMessage(
         `${players[currentPlayerIndex].name} won!`
       );
+      return;
+    }
+
+    if (checkTie()) {
+      gameOver = true;
+      displayController.renderMessage("It's a tie!");
       return;
     }
 
