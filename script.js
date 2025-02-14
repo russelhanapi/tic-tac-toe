@@ -26,4 +26,7 @@ const Gameboard = (function () {
   };
 })();
 
+// Factory function to create players
+const createPlayer = (name, mark) => ({ name, mark });
+
 Gameboard.render();
