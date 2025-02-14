@@ -13,6 +13,17 @@ const Gameboard = (function () {
         (html += `<div class="cell" id="cell-${index}">${cell}</div>`)
     );
     gameboardGrid.innerHTML = html;
+
+    // Add event listeners to each cell
+    document.querySelectorAll('.cell').forEach((cell) => {
+      cell.addEventListener('click', Game.handleClick);
+    });
+  }
+
+  // Update a specific cell and re-render the board
+  function update(index, value) {
+    board[index] = value;
+    render();
   }
 
   // Start/Reset the gameboard
@@ -20,10 +31,16 @@ const Gameboard = (function () {
     board.fill('', 0, 9);
     render();
   }
+  // Get a copy of the current gameboard
+  function getBoard() {
+    return [...board];
+  }
 
   return {
     render,
+    update,
     reset,
+    getBoard,
   };
 })();
 
@@ -32,13 +49,33 @@ const createPlayer = (name, mark) => ({ name, mark });
 
 // Module to manage the game logic
 const Game = (function () {
+  const players = [
+    createPlayer('Player X', 'X'),
+    createPlayer('Player O', 'O'),
+  ];
+  let currentPlayerIndex = 0;
+  let gameOver = false;
+
   // Start or restart the game
   function start() {
     Gameboard.reset();
   }
 
+  function handleClick(event) {
+    if (gameOver) return;
+
+    const index = Number(event.target.id.split('-')[1]);
+    if (Gameboard.getBoard()[index]) return;
+
+    Gameboard.update(index, players[currentPlayerIndex].mark);
+
+    // Switch Players Between Turns
+    currentPlayerIndex = 1 - currentPlayerIndex;
+  }
+
   return {
     start,
+    handleClick,
   };
 })();
 
