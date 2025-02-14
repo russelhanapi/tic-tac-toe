@@ -70,6 +70,9 @@ const Game = (function () {
   // Start or restart the game
   function start() {
     Gameboard.reset();
+    displayController.renderMessage(
+      `${players[currentPlayerIndex].name}'s turn`
+    );
   }
 
   function checkWinner() {
@@ -91,10 +94,17 @@ const Game = (function () {
     // Check if current player won
     if (checkWinner()) {
       gameOver = true;
+      displayController.renderMessage(
+        `${players[currentPlayerIndex].name} won!`
+      );
       return;
     }
+
     // Switch Players Between Turns
     currentPlayerIndex = 1 - currentPlayerIndex;
+    displayController.renderMessage(
+      `${players[currentPlayerIndex].name}'s turn`
+    );
   }
 
   return {
@@ -103,5 +113,13 @@ const Game = (function () {
   };
 })();
 
+// Module to control display messages
+const displayController = (function () {
+  const displayText = document.querySelector('.player-turn-display');
+  function renderMessage(message) {
+    displayText.innerHTML = message;
+  }
+  return { renderMessage };
+})();
 // Init
 Game.start();
