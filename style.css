@@ -52,6 +52,11 @@ body {
   justify-content: center;
 }
 
+.cell:hover {
+  background-color: #a27b5c33;
+  cursor: pointer;
+}
+
 #cell-3,
 #cell-5 {
   border-top: 2px solid #3f4f44;
@@ -81,4 +86,13 @@ body {
   cursor: pointer;
   box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
   transition: all 0.3s;
+}
+
+.btn-restart:hover {
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+  color: #c28756;
+}
+
+.btn-restart:active {
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
 }
