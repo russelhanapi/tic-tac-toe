@@ -56,9 +56,28 @@ const Game = (function () {
   let currentPlayerIndex = 0;
   let gameOver = false;
 
+  const winningCombinations = [
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    [0, 4, 8],
+    [2, 4, 6],
+  ];
+
   // Start or restart the game
   function start() {
     Gameboard.reset();
+  }
+
+  function checkWinner() {
+    const board = Gameboard.getBoard();
+    return winningCombinations.some((combination) => {
+      const [a, b, c] = combination;
+      return board[a] && board[a] === board[b] && board[a] === board[c];
+    });
   }
 
   function handleClick(event) {
@@ -69,6 +88,11 @@ const Game = (function () {
 
     Gameboard.update(index, players[currentPlayerIndex].mark);
 
+    // Check if current player won
+    if (checkWinner()) {
+      gameOver = true;
+      return;
+    }
     // Switch Players Between Turns
     currentPlayerIndex = 1 - currentPlayerIndex;
   }
