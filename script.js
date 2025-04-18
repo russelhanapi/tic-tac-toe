@@ -1,5 +1,3 @@
-// script.js
-
 // Module to manage the gameboard
 const Gameboard = (function () {
   const gameboardGrid = document.querySelector('#gameboard');
